@@ -21,8 +21,12 @@
 ## API Design
 https://www.tablesgenerator.com/markdown_tables
 
-| Method | Url | Description | Sample Valid Request Body | Sample Valid Response Body |
-|:------:|:---:|:-----------:|:-------------------------:|:--------------------------:|
-|   GET  |     |             |                           |                            |
-|  POST  |     |             |                           |                            |
-|        |     |             |                           |                            |
+| Method |        Url        |                 Description                  | Sample Valid Request Body | Sample Valid Response Body |
+|:------:|:-----------------:|:--------------------------------------------:|:-------------------------:|:--------------------------:|
+|  GET   |       /item       |              แสดงสินค้าทั้งหมด               |             -             |                            |
+|  GET   | /item?name={name} |            แสดงสินค้าตามการค้นหา             |             -             |                            |
+|  GET   |    /item/{id}     |           แสดงสินค้าตาม id สินค้า            |             -             |                            |
+|  POST  |       /cart       |         เพิ่มสินค้าเข้าตะกร้าสินค้า          |                           |                            |
+|  GET   |       /cart       | แสดงสินค้าที่เพิ่มเข้ามาในตะกร้าและมูลค่ารวม |                           |                            |
+|  POST  |     /checkout     |          สร้างคำสั่งซื้อและชำระเงิน          |                           |                            |
+|        |                   |                                              |                           |                            |
