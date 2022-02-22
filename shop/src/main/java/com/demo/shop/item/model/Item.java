@@ -1,11 +1,11 @@
 package com.demo.shop.item.model;
 
-import com.demo.shop.item.response.ItemDetail;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.demo.shop.item.response.ItemDetailResponse;
+import com.demo.shop.item.response.ItemFullDetailResponse;
 import lombok.Data;
-import org.springframework.context.annotation.PropertySource;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
@@ -17,11 +17,21 @@ public class Item {
     public String itemName;
     public double itemPrice;
     public String itemDetail;
+    public float itemRating;
 
+    public static ItemFullDetailResponse packItemFullDetail(Item item, List<String> itemImages){
+        ItemFullDetailResponse itemDetail = new ItemFullDetailResponse();
+        itemDetail.setItemDetail(item.getItemDetail());
+        itemDetail.setItemId(item.getItemId());
+        itemDetail.setItemImage(itemImages);
+        itemDetail.setItemPrice(item.getItemPrice());
+        itemDetail.setItemName(item.getItemName());
+        itemDetail.setItemRating(item.getItemRating());
+        return  itemDetail;
+    }
 
-
-    public static ItemDetail packItemDetail(Item item, ItemImage itemImage){
-        ItemDetail itemDetail = new ItemDetail();
+    public static ItemDetailResponse packItemDetail(Item item, ItemImage itemImage){
+        ItemDetailResponse itemDetail = new ItemDetailResponse();
         itemDetail.setItemDetail(item.getItemDetail());
         itemDetail.setItemId(item.getItemId());
         itemDetail.setItemImage(itemImage.getItem_image());

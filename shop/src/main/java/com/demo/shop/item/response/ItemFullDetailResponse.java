@@ -3,8 +3,10 @@ package com.demo.shop.item.response;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
-public class ItemDetail {
+public class ItemFullDetailResponse {
 
         @JsonProperty("item_id")
         private long itemId;
@@ -15,7 +17,8 @@ public class ItemDetail {
         @JsonProperty("item_price")
         private double itemPrice;
         @JsonProperty("item_image")
-        private String itemImage;
-
+        private List<String> itemImage;
+        @JsonProperty("item_rating")
+        private float ItemRating;
 
 }
