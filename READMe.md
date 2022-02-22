@@ -21,12 +21,12 @@
 ## API Design
 https://www.tablesgenerator.com/markdown_tables
 
-| Method |        Url        |                 Description                  | Sample Valid Request Body | Sample Valid Response Body |
-|:------:|:-----------------:|:--------------------------------------------:|:-------------------------:|:--------------------------:|
-|  GET   |       /item       |              แสดงสินค้าทั้งหมด               |             -             |                            |
-|  GET   | /item?name={name} |            แสดงสินค้าตามการค้นหา             |             -             |                            |
-|  GET   |    /item/{id}     |           แสดงสินค้าตาม id สินค้า            |             -             |                            |
-|  POST  |       /cart       |         เพิ่มสินค้าเข้าตะกร้าสินค้า          |                           |                            |
-|  GET   |       /cart       | แสดงสินค้าที่เพิ่มเข้ามาในตะกร้าและมูลค่ารวม |                           |                            |
-|  POST  |     /checkout     |          สร้างคำสั่งซื้อและชำระเงิน          |                           |                            |
-|        |                   |                                              |                           |                            |
+| Method |        Url        |             Description            |                                                  Sample Valid Request Body                                                 |                                                   Sample Valid Response Body                                                  |
+|:------:|:-----------------:|:----------------------------------:|:--------------------------------------------------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------------------------------------------------------:|
+|   GET  |       /item       |            แสดงสินค้าทั้งหมด           |                                                              -                                                             |  [JSON](https://github.com/aditepDev/assignment-java-boot-camp/blob/feature/week1/api_design/response_body/show_itemList.md)  |
+|   GET  | /item?name={name} |         แสดงสินค้าตามการค้นหา         |                                                              -                                                             | [JSON](https://github.com/aditepDev/assignment-java-boot-camp/blob/feature/week1/api_design/response_body/show_itemSearch.md) |
+|   GET  |     /item/{id}    |         แสดงสินค้าตาม id สินค้า        |                                                              -                                                             |    [JSON](https://github.com/aditepDev/assignment-java-boot-camp/blob/feature/week1/api_design/response_body/show_item.md)    |
+|  POST  |       /cart       |         เพิ่มสินค้าเข้าตะกร้าสินค้า        |    [JSON](https://github.com/aditepDev/assignment-java-boot-camp/blob/feature/week1/api_design/request_body/add_cart.md)   |                                                               -                                                               |
+|   GET  |       /cart       | แสดงสินค้าที่เพิ่มเข้ามาในตะกร้าและมูลค่ารวม |                                                              -                                                             |    [JSON](https://github.com/aditepDev/assignment-java-boot-camp/blob/feature/week1/api_design/response_body/show_cart.md)    |
+|  POST  |     /checkout     |        สร้างคำสั่งซื้อและชำระเงิน        | [JSON](https://github.com/aditepDev/assignment-java-boot-camp/blob/feature/week1/api_design/request_body/checkout_cart.md) |  [JSON](https://github.com/aditepDev/assignment-java-boot-camp/blob/feature/week1/api_design/response_body/checkout_cart.md)  |
+|        |                   |                                    |                                                                                                                            |                                                                                                                               |
