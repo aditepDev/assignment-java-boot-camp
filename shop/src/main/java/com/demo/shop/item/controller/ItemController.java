@@ -1,20 +1,29 @@
-package com.demo.shop.product.controller;
+package com.demo.shop.item.controller;
 
-import org.springframework.http.RequestEntity;
+import com.demo.shop.item.business.ItemBusiness;
+import com.demo.shop.item.model.Item;
+import com.demo.shop.item.response.ItemDetail;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/item")
 public class ItemController {
 
-    @GetMapping(value = "")
-    public ResponseEntity<?> findProductAll() {
+    @Autowired
+    ItemBusiness itemBusiness;
 
-        return ResponseEntity.ok(null);
+    @GetMapping(value = "/")
+    public ResponseEntity<List<ItemDetail>> findProductAll() {
+        return ResponseEntity.ok(itemBusiness.findItemAll());
     }
 
+    @GetMapping(value = "")
+    public ResponseEntity<List<ItemDetail>> findProductFilter(@RequestParam String name) {
+        System.out.println(name);
+        return ResponseEntity.ok(itemBusiness.findAllByItemNameLike(name));
+    }
 }
