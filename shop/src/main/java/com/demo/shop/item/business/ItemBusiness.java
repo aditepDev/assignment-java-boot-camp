@@ -33,12 +33,10 @@ public class ItemBusiness {
         return getItemDetails(items);
     }
 
-
     public ItemFullDetailResponse findItemOneById(long itemId){
         Optional<Item> itemOptional = itemService.findOneById(itemId);
     if (itemOptional.isPresent()){
-        List<String> itemImage = itemImageService.findAllByItem(itemOptional.get()).stream().map(ItemImage::getItem_image).collect(Collectors.toList());
-        return Item.packItemFullDetail(itemOptional.get(),itemImage);
+        return Item.packItemFullDetail(itemOptional.get());
     }
         return new ItemFullDetailResponse();
 
@@ -47,8 +45,7 @@ public class ItemBusiness {
     private List<ItemDetailResponse> getItemDetails(List<Item> items) {
         List<ItemDetailResponse> itemDetails = new ArrayList<>();
         for (Item item: items) {
-            ItemImage itemImage = itemImageService.findTopByItem(item);
-            ItemDetailResponse itemDetail = Item.packItemDetail(item,itemImage);
+            ItemDetailResponse itemDetail = Item.packItemDetail(item);
             itemDetails.add(itemDetail);
         }
         return itemDetails;

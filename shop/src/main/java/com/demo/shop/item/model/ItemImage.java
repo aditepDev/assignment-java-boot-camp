@@ -1,8 +1,10 @@
 package com.demo.shop.item.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 
 import javax.persistence.*;
+
 
 @Data
 @Entity
@@ -10,9 +12,10 @@ import javax.persistence.*;
 public class ItemImage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long item_image_id;
-    private String item_image;
+    private long itemImageId;
+    private String itemImage;
+
     @ManyToOne
-    @JoinColumn(name="item_id")
+    @JoinColumn(name="item_id" , nullable = false)
     private Item item;
 }

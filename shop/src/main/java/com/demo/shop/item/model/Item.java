@@ -2,41 +2,55 @@ package com.demo.shop.item.model;
 
 import com.demo.shop.item.response.ItemDetailResponse;
 import com.demo.shop.item.response.ItemFullDetailResponse;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Data
 @Entity
-@Table(name="item")
+@Table(name = "item")
 public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public long itemId;
-    public String itemName;
-    public double itemPrice;
-    public String itemDetail;
-    public float itemRating;
+    private long itemId;
+    private String itemName;
+    private double itemPrice;
+    private String itemDetail;
+    private float itemRating;
 
-    public static ItemFullDetailResponse packItemFullDetail(Item item, List<String> itemImages){
+    @JsonBackReference
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "item", cascade = CascadeType.ALL)
+    private List<ItemImage> itemImage;
+
+    public static ItemFullDetailResponse packItemFullDetail(Item item) {
         ItemFullDetailResponse itemDetail = new ItemFullDetailResponse();
         itemDetail.setItemDetail(item.getItemDetail());
         itemDetail.setItemId(item.getItemId());
-        itemDetail.setItemImage(itemImages);
+        itemDetail.setItemImage(item.getItemImage().stream().map(ItemImage::getItemImage).collect(Collectors.toList()));
         itemDetail.setItemPrice(item.getItemPrice());
         itemDetail.setItemName(item.getItemName());
         itemDetail.setItemRating(item.getItemRating());
-        return  itemDetail;
+        return itemDetail;
     }
 
-    public static ItemDetailResponse packItemDetail(Item item, ItemImage itemImage){
+    public static ItemDetailResponse packItemDetail(Item item) {
         ItemDetailResponse itemDetail = new ItemDetailResponse();
         itemDetail.setItemDetail(item.getItemDetail());
         itemDetail.setItemId(item.getItemId());
-        itemDetail.setItemImage(itemImage.getItem_image());
+
+        String itemItem = null;
+        if (!item.getItemImage().isEmpty()) {
+            itemItem =  item.getItemImage().stream().map(ItemImage::getItemImage).findFirst().get();
+        }
+
+        itemDetail.setItemImage(itemItem);
         itemDetail.setItemPrice(item.getItemPrice());
         itemDetail.setItemName(item.getItemName());
-        return  itemDetail;
+        return itemDetail;
     }
 }
