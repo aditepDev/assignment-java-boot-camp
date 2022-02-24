@@ -27,30 +27,4 @@ public class Item {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "item", cascade = CascadeType.ALL)
     private List<ItemImage> itemImage;
 
-    public static ItemFullDetailResponse packItemFullDetail(Item item) {
-        ItemFullDetailResponse itemDetail = new ItemFullDetailResponse();
-        itemDetail.setItemDetail(item.getItemDetail());
-        itemDetail.setItemId(item.getItemId());
-        itemDetail.setItemImage(item.getItemImage().stream().map(ItemImage::getItemImage).collect(Collectors.toList()));
-        itemDetail.setItemPrice(item.getItemPrice());
-        itemDetail.setItemName(item.getItemName());
-        itemDetail.setItemRating(item.getItemRating());
-        return itemDetail;
-    }
-
-    public static ItemDetailResponse packItemDetail(Item item) {
-        ItemDetailResponse itemDetail = new ItemDetailResponse();
-        itemDetail.setItemDetail(item.getItemDetail());
-        itemDetail.setItemId(item.getItemId());
-
-        String itemItem = null;
-        if (!item.getItemImage().isEmpty()) {
-            itemItem =  item.getItemImage().stream().map(ItemImage::getItemImage).findFirst().get();
-        }
-
-        itemDetail.setItemImage(itemItem);
-        itemDetail.setItemPrice(item.getItemPrice());
-        itemDetail.setItemName(item.getItemName());
-        return itemDetail;
-    }
 }

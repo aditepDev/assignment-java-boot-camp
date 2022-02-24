@@ -23,32 +23,16 @@ public class ItemBusiness {
     ItemImageService itemImageService;
 
     public List<ItemDetailResponse> findItemAll() {
-       List<Item> items  = itemService.findAll();
-        return getItemDetails(items);
+        return ItemDetailResponse.packItemDetail(itemService.findAll());
     }
 
-
     public List<ItemDetailResponse> findAllByItemNameLike(String name) {
-        List<Item> items =  itemService.findAllByItemNameLike(name);
-        return getItemDetails(items);
+        return ItemDetailResponse.packItemDetail(itemService.findAllByItemNameLike(name));
     }
 
     public ItemFullDetailResponse findItemOneById(long itemId){
-        Optional<Item> itemOptional = itemService.findOneById(itemId);
-    if (itemOptional.isPresent()){
-        return Item.packItemFullDetail(itemOptional.get());
-    }
-        return new ItemFullDetailResponse();
-
+        return ItemFullDetailResponse.packItemFullDetail(itemService.findOneById(itemId));
     }
 
-    private List<ItemDetailResponse> getItemDetails(List<Item> items) {
-        List<ItemDetailResponse> itemDetails = new ArrayList<>();
-        for (Item item: items) {
-            ItemDetailResponse itemDetail = Item.packItemDetail(item);
-            itemDetails.add(itemDetail);
-        }
-        return itemDetails;
-    }
 
 }
