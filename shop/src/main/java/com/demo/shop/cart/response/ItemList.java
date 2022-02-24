@@ -1,0 +1,47 @@
+package com.demo.shop.cart.response;
+
+import com.demo.shop.cart.model.Cart;
+import com.demo.shop.item.model.Item;
+import com.demo.shop.item.model.ItemImage;
+import lombok.Data;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
+
+@Data
+public class ItemList {
+	private double itemRating;
+	private long itemId;
+	private double itemPrice;
+	private int qty;
+	private String itemImage;
+	private String itemName;
+	private String itemDescription;
+
+
+	public static ItemList packItemList(Cart cart) {
+		ItemList itemList = new ItemList();
+		Item item = cart.getItem();
+		itemList.setItemId(item.getItemId());
+		itemList.setItemName(item.getItemName());
+		String itemItem = null;
+		if (!item.getItemImage().isEmpty()) {
+			itemItem = item.getItemImage().stream().map(ItemImage::getItemImage).findFirst().get();
+		}
+		itemList.setItemImage(itemItem);
+		itemList.setItemDescription(item.getItemDetail());
+		itemList.setItemPrice(item.getItemPrice());
+		itemList.setItemRating(item.getItemRating());
+		itemList.setQty(cart.getQty());
+		return itemList;
+	}
+
+	public static List<ItemList> packItemList(List<Cart> carts) {
+		List<ItemList> itemLists = new ArrayList<>();
+		for (Cart cart:carts) {
+			itemLists.add(packItemList(cart));
+		}
+		return itemLists;
+	}
+}

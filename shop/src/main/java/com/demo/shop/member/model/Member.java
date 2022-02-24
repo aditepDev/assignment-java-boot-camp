@@ -2,7 +2,11 @@ package com.demo.shop.member.model;
 
 import javax.persistence.*;
 
+import com.demo.shop.item.model.ItemImage;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
+
+import java.util.List;
 
 @Data
 @Entity
@@ -14,4 +18,9 @@ public class Member {
     private String memberName;
     private String memberAddress;
     private String memberTel;
+
+    @JsonBackReference
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "member", cascade = CascadeType.ALL)
+    private List<MemberWallet> memberWallet;
+
 }

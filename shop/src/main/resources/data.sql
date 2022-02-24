@@ -5,13 +5,13 @@ INSERT INTO MEMBER_WALLET (MEMBER_WALLET_ID,WALLET,MEMBER_ID) VALUES (1,5000.0,1
 
 -- ITEM & ITEM IMAGE
 INSERT INTO ITEM (ITEM_ID,ITEM_NAME, ITEM_DETAIL,ITEM_PRICE,ITEM_RATING) VALUES (1,'Canagan คานาแกน อาหารแมว สูตร ไก่ ฟรีเรนจ์ ขนาด 1.5kg ',
-'คานาแกน ฟรี รัน ปลา อาหารลูกแมว และแมวโต เพื่อสุขภาพ ลดการเป็นนิ่ว ลดความเครียด',845.0,4.9);
+'คานาแกน ฟรี รัน ไก่ อาหารลูกแมว และแมวโต เพื่อสุขภาพ ลดการเป็นนิ่ว ลดความเครียด',845.0,4.9);
 INSERT INTO ITEM_IMAGE (ITEM_IMAGE_ID, ITEM_IMAGE,ITEM_ID) VALUES (1,'image_canagan_chicken_1.jpg',1);
 INSERT INTO ITEM_IMAGE (ITEM_IMAGE_ID, ITEM_IMAGE,ITEM_ID) VALUES (2,'image_canagan_chicken_2.jpg',1);
 INSERT INTO ITEM_IMAGE (ITEM_IMAGE_ID, ITEM_IMAGE,ITEM_ID) VALUES (3,'image_canagan_chicken_3.jpg',1);
 
 
-INSERT INTO ITEM (ITEM_ID,ITEM_NAME, ITEM_DETAIL,ITEM_PRICE,ITEM_RATING) VALUES (2,'Canagan fish 1.5kg','คานาแกน ฟรี รัน ปลา อาหารลูกแมว และแมวโต เพื่อสุขภาพ ลดการเป็นนิ่ว ลดความเครียด',845.0,4.9);
+INSERT INTO ITEM (ITEM_ID,ITEM_NAME, ITEM_DETAIL,ITEM_PRICE,ITEM_RATING) VALUES (2,'Canagan fish 1.5kg','คานาแกน ฟรี รัน ปลา อาหารลูกแมว และแมวโต เพื่อสุขภาพ ลดการเป็นนิ่ว ลดความเครียด',845.0,4.8);
 INSERT INTO ITEM_IMAGE (ITEM_IMAGE_ID, ITEM_IMAGE,ITEM_ID) VALUES (4,'image_canagan_fish_1.jpg',2);
 
 

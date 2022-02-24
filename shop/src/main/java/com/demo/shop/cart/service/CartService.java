@@ -7,6 +7,7 @@ import com.demo.shop.member.model.Member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -28,5 +29,9 @@ public class CartService {
         }
         return cart.get();
 
+    }
+
+    public List<Cart> findCartByMember(Member member){
+        return cartRepository.findAllByMember(member);
     }
 }

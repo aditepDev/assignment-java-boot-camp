@@ -2,14 +2,19 @@ package com.demo.shop.cart.business;
 
 import com.demo.shop.cart.model.Cart;
 import com.demo.shop.cart.requests.CartPayload;
+import com.demo.shop.cart.response.*;
 import com.demo.shop.cart.service.CartService;
 import com.demo.shop.item.model.Item;
+import com.demo.shop.item.model.ItemImage;
 import com.demo.shop.item.service.ItemService;
 import com.demo.shop.member.model.Member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class CartBusiness {
@@ -38,6 +43,23 @@ public class CartBusiness {
         }else{
              throw new Exception("cart.item.null");
         }
+    }
+
+
+    public CartResponse findItemCart(Member member){
+        CartResponse cartResponse = new CartResponse();
+        List<Cart> carts =  cartService.findCartByMember(member);
+
+        Checkout checkout = new Checkout();
+        Payment payment = new Payment();
+        UserDetail userDetail = new UserDetail();
+
+        cartResponse.setItemList(ItemList.packItemList(carts));
+        cartResponse.setCheckout(checkout);
+        cartResponse.setPayment(payment);
+        cartResponse.setUserDetail(userDetail);
+
+        return cartResponse;
     }
 
 }
