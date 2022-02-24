@@ -3,6 +3,7 @@ package com.demo.shop.cart.response;
 import com.demo.shop.cart.model.Cart;
 import com.demo.shop.item.model.Item;
 import com.demo.shop.item.model.ItemImage;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import java.text.DecimalFormat;
@@ -12,12 +13,18 @@ import java.util.Stack;
 
 @Data
 public class ItemList {
+	@JsonProperty("item_rating")
 	private double itemRating;
+	@JsonProperty("item_id")
 	private long itemId;
+	@JsonProperty("item_price")
 	private double itemPrice;
 	private int qty;
+	@JsonProperty("item_image")
 	private String itemImage;
+	@JsonProperty("item_name")
 	private String itemName;
+	@JsonProperty("item_description")
 	private String itemDescription;
 
 

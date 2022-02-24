@@ -4,13 +4,18 @@ import java.util.List;
 
 import com.demo.shop.cart.model.Cart;
 import com.demo.shop.member.model.Member;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 @Data
 public class CartResponse {
+    @JsonProperty("user_detail")
     private UserDetail userDetail;
+    @JsonProperty("item_list")
     private List<ItemList> itemList;
+    @JsonProperty("payment")
     private Payment payment;
+    @JsonProperty("checkout")
     private Checkout checkout;
 
     public static CartResponse packCartResponse(List<Cart> carts, Member member) {
