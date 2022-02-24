@@ -1,7 +1,6 @@
 package com.demo.shop.cart.controller;
 
 import com.demo.shop.cart.business.CartBusiness;
-import com.demo.shop.cart.model.Cart;
 import com.demo.shop.cart.requests.CartPayload;
 import com.demo.shop.cart.response.CartResponse;
 import com.demo.shop.member.model.Member;

@@ -5,7 +5,6 @@ import com.demo.shop.member.model.Member;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data

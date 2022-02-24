@@ -20,7 +20,7 @@ public class Member {
     private String memberTel;
 
     @JsonBackReference
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "member", cascade = CascadeType.ALL)
-    private List<MemberWallet> memberWallet;
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "member", cascade = CascadeType.ALL)
+    private MemberWallet memberWallet;
 
 }

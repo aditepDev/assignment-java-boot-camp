@@ -5,6 +5,7 @@ import com.demo.shop.item.model.Item;
 import com.demo.shop.item.model.ItemImage;
 import lombok.Data;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
@@ -32,7 +33,7 @@ public class ItemList {
 		itemList.setItemImage(itemItem);
 		itemList.setItemDescription(item.getItemDetail());
 		itemList.setItemPrice(item.getItemPrice());
-		itemList.setItemRating(item.getItemRating());
+		itemList.setItemRating(Double.parseDouble(new DecimalFormat("0.00").format(item.getItemRating())));
 		itemList.setQty(cart.getQty());
 		return itemList;
 	}
