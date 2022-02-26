@@ -64,7 +64,7 @@ class CartBusinessTest {
         Item item = MockData.getItem();
         Cart cart = new Cart();
 
-        // Act
+
 
 
         // check สินค้าว่ามีในระบบไหม
@@ -78,6 +78,8 @@ class CartBusinessTest {
         // add สินค้าในตะกร้า
         when(cartService.saveCart(cart)).thenReturn(cart);
 
+
+        // Act
         Cart result = cartBusiness.updateItemCart(cartPayload, member);
         // Assert
         assertEquals(1, result.getItem().getItemId());
@@ -98,7 +100,7 @@ class CartBusinessTest {
         Cart cart = MockData.getCart();
 
 
-        // Act
+
 
         // check สินค้าว่ามีในระบบไหม
         when(itemService.findOneById(cartPayload.getItemId())).thenReturn(Optional.of(item));
@@ -106,6 +108,8 @@ class CartBusinessTest {
         when(cartRepository.findOneByMemberAndItem(member, item)).thenReturn(Optional.of(cart));
         cart.setItem(item);
         cart.setQty(5);
+
+        // Act
         // update จำนวนสินค้าในตะกร้า
         when(cartService.saveCart(cart)).thenReturn(cart);
 
@@ -129,9 +133,6 @@ class CartBusinessTest {
         Item item = MockData.getItem();
         Cart cart = MockData.getCart();
 
-
-        // Act
-
         // check สินค้าว่ามีในระบบไหม
         when(itemService.findOneById(cartPayload.getItemId())).thenReturn(Optional.of(item));
         // check สินค้าว่ามีในตะกร้ารึยัง
@@ -139,6 +140,8 @@ class CartBusinessTest {
 
         cart.setItem(item);
         cart.setQty(cartPayload.getQty());
+
+        // Act
         // delete สินค้าในตะกร้า
         cartBusiness.updateItemCart(cartPayload, member);
         // Assert
@@ -154,11 +157,12 @@ class CartBusinessTest {
         cartPayload.setItemId(11L);
         cartPayload.setQty(0);
 
-        // Act
+
 
         // check สินค้าว่ามีในระบบไหม
         when(itemService.findOneById(cartPayload.getItemId())).thenReturn(Optional.empty());
 
+        // Act
         // delete สินค้าในตะกร้า
         Exception thrown = Assertions.assertThrows(Exception.class, () -> {
             cartBusiness.updateItemCart(cartPayload, member);
