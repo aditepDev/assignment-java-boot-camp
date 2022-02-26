@@ -27,7 +27,7 @@ class PurchaseRepositoryTest {
         Item item = MockData.getItem();
         Purchase purchase = MockData.getPurchase(invoiceNo, member, item);
         purchaseRepository.save(purchase);
-        // ACt
+        // Act
         Optional<Purchase> result = purchaseRepository.findOneByInvoiceNo(invoiceNo);
         // Assert
         assertEquals(invoiceNo,result.get().getInvoiceNo());
