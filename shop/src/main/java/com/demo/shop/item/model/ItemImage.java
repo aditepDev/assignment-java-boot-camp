@@ -1,5 +1,6 @@
 package com.demo.shop.item.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -14,7 +15,7 @@ public class ItemImage {
     private long itemImageId;
     private String itemImage;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="item_id" , nullable = false)
     private Item item;
 }

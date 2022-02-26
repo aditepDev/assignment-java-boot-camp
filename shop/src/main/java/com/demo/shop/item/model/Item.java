@@ -3,6 +3,7 @@ package com.demo.shop.item.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.List;
@@ -22,6 +23,7 @@ public class Item {
     private float itemRating;
 
     @JsonBackReference
+    @ToString.Exclude
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "item", cascade = CascadeType.ALL)
     private List<ItemImage> itemImage;
 

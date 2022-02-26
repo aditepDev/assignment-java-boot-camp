@@ -4,6 +4,7 @@ import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
+import lombok.ToString;
 
 @Data
 @Entity
@@ -17,6 +18,7 @@ public class Member {
     private String memberTel;
 
     @JsonBackReference
+    @ToString.Exclude
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "member", cascade = CascadeType.ALL)
     private MemberWallet memberWallet;
 

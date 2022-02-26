@@ -1,6 +1,8 @@
 package com.demo.shop.member.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.*;
 
@@ -14,6 +16,7 @@ public class MemberWallet {
     private double wallet;
 
     @ManyToOne
+    @ToString.Exclude
     @JoinColumn(name = "member_id")
     private Member member;
 }
