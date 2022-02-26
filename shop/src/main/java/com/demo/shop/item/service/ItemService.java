@@ -26,4 +26,7 @@ public class ItemService {
         return itemRepository.findById(itemId);
     }
 
+    public void setItemRepository(ItemRepository itemRepository) {
+        this.itemRepository = itemRepository;
+    }
 }
