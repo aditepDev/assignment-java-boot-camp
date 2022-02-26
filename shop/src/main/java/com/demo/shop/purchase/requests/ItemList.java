@@ -6,6 +6,6 @@ import lombok.Data;
 @Data
 public class ItemList{
 	@JsonProperty("item_id")
-	private int itemId;
+	private long itemId;
 	private int qty;
 }

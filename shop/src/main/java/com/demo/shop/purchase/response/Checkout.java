@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 public class Checkout{
 	@JsonProperty("total_price")
-	private int totalPrice;
+	private double totalPrice;
 	@JsonProperty("total_qty")
 	private int totalQty;
 }

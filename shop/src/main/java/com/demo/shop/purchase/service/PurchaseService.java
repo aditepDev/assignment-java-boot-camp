@@ -1,0 +1,32 @@
+package com.demo.shop.purchase.service;
+
+import com.demo.shop.purchase.model.Purchase;
+import com.demo.shop.purchase.model.PurchaseItem;
+import com.demo.shop.purchase.repository.PurchaseItemRepository;
+import com.demo.shop.purchase.repository.PurchaseRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
+
+@Service
+public class PurchaseService {
+    @Autowired
+    PurchaseRepository purchaseRepository;
+    @Autowired
+    PurchaseItemRepository purchaseItemRepository;
+    public Optional<Purchase>  findOneByInvoiceNo(String invoiceNo) {
+        return  purchaseRepository.findOneByInvoiceNo(invoiceNo);
+    }
+    public Purchase savePurchase(Purchase purchase) {
+        return purchaseRepository.save(purchase);
+    }
+    public void setPurchaseRepository(PurchaseRepository purchaseRepository) {
+        this.purchaseRepository = purchaseRepository;
+    }
+
+    public void setPurchaseItemRepository(PurchaseItemRepository purchaseItemRepository) {
+        this.purchaseItemRepository = purchaseItemRepository;
+    }
+}

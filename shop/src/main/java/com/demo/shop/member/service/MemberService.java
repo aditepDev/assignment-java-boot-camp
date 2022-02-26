@@ -15,4 +15,8 @@ public class MemberService {
     public Member memberMork(){
         return  memberRepository.findById(MemberMork.MEMBER_MORK_BUYER.getId()).get();
     }
+
+    public Member saveMembe(Member member){
+        return memberRepository.save(member);
+    }
 }
