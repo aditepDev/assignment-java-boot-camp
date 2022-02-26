@@ -21,7 +21,7 @@ public class CartBusiness {
     @Autowired
     CartService cartService;
 
-    public void updateItemCart(CartPayload cartPayload, Member member) throws Exception {
+    public Cart updateItemCart(CartPayload cartPayload, Member member) throws Exception {
 
         Cart cart = new Cart();
         Optional<Item> item = itemService.findOneById(cartPayload.getItemId());
@@ -35,12 +35,13 @@ public class CartBusiness {
             if (cart.getCartId() != 0 && cartPayload.getQty() == 0) {
                 cartService.deleteItemOnCart(cart);
             } else if (cartPayload.getQty() != 0) {
-                cartService.saveCart(cart);
+                return cart = cartService.saveCart(cart);
             }
-
         } else {
             throw new Exception("cart.item.null");
         }
+
+        return cart;
     }
 
 
@@ -49,4 +50,11 @@ public class CartBusiness {
         return CartResponse.packCartResponse(carts, member);
     }
 
+    public void setItemService(ItemService itemService) {
+        this.itemService = itemService;
+    }
+
+    public void setCartService(CartService cartService) {
+        this.cartService = cartService;
+    }
 }

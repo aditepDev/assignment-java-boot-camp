@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+
 @Service
 public class CartService {
 
@@ -33,5 +34,9 @@ public class CartService {
 
     public List<Cart> findCartByMember(Member member){
         return cartRepository.findAllByMember(member);
+    }
+
+    public void setCartRepository(CartRepository cartRepository) {
+        this.cartRepository = cartRepository;
     }
 }

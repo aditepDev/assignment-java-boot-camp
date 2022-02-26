@@ -21,5 +21,10 @@ public class Cart {
     @JoinColumn(name = "member_id")
     private Member member;
     private int qty;
-    private LocalDateTime createdAt = LocalDateTime.now();
+
+
+    @Column(name="createdAt", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    private LocalDateTime createdAt;
+
+
 }

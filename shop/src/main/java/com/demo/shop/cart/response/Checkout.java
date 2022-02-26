@@ -17,8 +17,8 @@ public class Checkout {
 
     public static Checkout packCheckout(List<ItemList> ItemLists) {
         Checkout checkout = new Checkout();
-        checkout.setTotalPrice(ItemLists.stream().mapToDouble(ItemList::getItemPrice).sum());
         checkout.setTotalQty(ItemLists.stream().mapToInt(ItemList::getQty).sum());
+        checkout.setTotalPrice(ItemLists.stream().mapToDouble(ItemList::getItemPrice).sum() * checkout.getTotalQty());
         return checkout;
     }
 }
