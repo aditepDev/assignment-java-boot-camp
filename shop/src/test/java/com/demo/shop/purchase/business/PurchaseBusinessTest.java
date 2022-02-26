@@ -72,8 +72,8 @@ class PurchaseBusinessTest {
         CheckOutRequest checkOutRequest = MockPayload.getCheckOutRequest();
         Purchase purchase = MockData.getPurchase(invoiceNo, member, item);
         purchase.setPurchaseId(0);
-        // Act
         when(itemService.findOneById(1)).thenReturn(Optional.of(item));
+        // Act
         PurchaseResponse result = purchaseBusiness.checkOut(checkOutRequest, member, invoiceNo);
         // assert , verify
         assertEquals(invoiceNo,result.getBillInvoiceNo());
@@ -89,11 +89,11 @@ class PurchaseBusinessTest {
         // Arrange
         Member member = MockData.getMember();
         double total = 1000;
-        // Act
         MemberWallet walletOld = member.getMemberWallet();
         double wallet = walletOld.getWallet() - total;
         member.getMemberWallet().setWallet(wallet);
         when(memberService.saveMembe(member)).thenReturn(member);
+        // Act
         Member result = purchaseBusiness.pay(member, total);
         // assert , verify
         assertEquals(1,result.getMemberId());
