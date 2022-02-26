@@ -1,7 +1,5 @@
 package com.demo.shop.item.model;
 
-import com.demo.shop.item.response.ItemDetailResponse;
-import com.demo.shop.item.response.ItemFullDetailResponse;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;

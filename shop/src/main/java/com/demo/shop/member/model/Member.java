@@ -2,11 +2,8 @@ package com.demo.shop.member.model;
 
 import javax.persistence.*;
 
-import com.demo.shop.item.model.ItemImage;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
-
-import java.util.List;
 
 @Data
 @Entity
