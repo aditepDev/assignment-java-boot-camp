@@ -5,6 +5,9 @@ import com.demo.shop.item.model.Item;
 import com.demo.shop.item.model.ItemImage;
 import com.demo.shop.member.model.Member;
 import com.demo.shop.member.model.MemberWallet;
+import com.demo.shop.purchase.model.Purchase;
+import com.demo.shop.purchase.model.PurchaseItem;
+import com.demo.shop.purchase.requests.CheckOutRequest;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -75,4 +78,25 @@ public class MockData {
         return cart;
     }
 
+    public static  Purchase getPurchase(String invoiceNo, Member member, Item item) {
+        Purchase purchase = new Purchase();
+        purchase.setPurchaseId(1);
+        purchase.setInvoiceNo(invoiceNo);
+        purchase.setMember(member);
+        purchase.setQty(2);
+        purchase.setTotal(20);
+        purchase.setTel(member.getMemberTel());
+        purchase.setAddress(member.getMemberAddress());
+        purchase.setName(member.getMemberName());
+        List<PurchaseItem> purchaseItems = new ArrayList<>();
+        PurchaseItem purchaseItem = new PurchaseItem();
+        purchaseItem.setPurchase(purchase);
+        purchaseItem.setItem(item);
+        purchaseItem.setPurchaseItemId(1);
+        purchaseItem.setItemDetail(item.getItemDetail());
+        purchaseItem.setPrice(item.getItemPrice());
+        purchaseItem.setQty(2);
+        purchase.setPurchaseItem(purchaseItems);
+        return purchase;
+    }
 }

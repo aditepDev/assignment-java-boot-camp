@@ -11,6 +11,9 @@ public class MemberService {
     @Autowired
     MemberRepository memberRepository;
 
+    public void setMemberRepository(MemberRepository memberRepository) {
+        this.memberRepository = memberRepository;
+    }
 
     public Member memberMork(){
         return  memberRepository.findById(MemberMork.MEMBER_MORK_BUYER.getId()).get();

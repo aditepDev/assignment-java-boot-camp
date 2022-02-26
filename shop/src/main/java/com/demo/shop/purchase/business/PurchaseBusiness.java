@@ -32,14 +32,14 @@ public class PurchaseBusiness {
     ItemService itemService;
     @Autowired
     MemberService memberService;
-    public PurchaseResponse checkOut(CheckOutRequest checkOutRequest, Member member) throws Exception {
+    public PurchaseResponse checkOut(CheckOutRequest checkOutRequest, Member member,String invoiceNo) throws Exception {
 
         Purchase purchase = new Purchase();
         purchase.setName(checkOutRequest.getUserDetail().getUserName());
         purchase.setAddress(checkOutRequest.getUserDetail().getUserAddress());
         purchase.setMember(member);
         purchase.setTel(checkOutRequest.getUserDetail().getUserTel());
-        purchase.setInvoiceNo(UUID.randomUUID().toString());
+        purchase.setInvoiceNo(invoiceNo);
         List<PurchaseItem> purchaseItems = new ArrayList<>();
 
         int qty = 0;
@@ -73,11 +73,11 @@ public class PurchaseBusiness {
 
         double memberWalletOld = member.getMemberWallet().getWallet();
         pay(member, total);
-        purchase = purchaseService.savePurchase(purchase);
+        purchaseService.savePurchase(purchase);
         PurchaseResponse purchaseResponse  = new PurchaseResponse();
         purchaseResponse.setMemberWalletOld(memberWalletOld);
         purchaseResponse.setMemberWallet( member.getMemberWallet().getWallet());
-        purchaseResponse.setBillInvoiceNo(purchase.getInvoiceNo());
+        purchaseResponse.setBillInvoiceNo(invoiceNo);
         purchaseResponse.setTotalPrice(total);
 
 
@@ -85,13 +85,13 @@ public class PurchaseBusiness {
 
 
     }
-    private void pay(Member member,double total) throws Exception {
+    public Member pay(Member member, double total) throws Exception {
         MemberWallet memberWallet =  member.getMemberWallet();
         double priceTotal = memberWallet.getWallet() - total;
         if((priceTotal) >= 0){
             memberWallet.setWallet(priceTotal);
             member.setMemberWallet(memberWallet);
-            memberService.saveMembe(member);
+            return memberService.saveMembe(member);
         }else{
             throw new Exception("member.wallet.notEnough");
         }
@@ -121,5 +121,9 @@ public class PurchaseBusiness {
 
     public void setItemService(ItemService itemService) {
         this.itemService = itemService;
+    }
+
+    public void setMemberService(MemberService memberService) {
+        this.memberService = memberService;
     }
 }

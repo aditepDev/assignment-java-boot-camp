@@ -42,7 +42,7 @@ class ItemBusinessTest {
     void findItemAll() {
         // Arrange
         List<Item> items = MockData.getItems();
-        when(itemRepository.findAll()).thenReturn(items);
+        when(itemService.findAll()).thenReturn(items);
         // Act
         List<ItemDetailResponse> result = itemBusiness.findItemAll();
         // assert , verify
@@ -55,7 +55,7 @@ class ItemBusinessTest {
     void findAllByItemNameLike() {
         // Arrange
         List<Item> items = MockData.getItems();
-        when(itemRepository.findAllByItemNameContainingIgnoreCase("name")).thenReturn(items);
+        when(itemService.findAllByItemNameLike("name")).thenReturn(items);
         // Act
         List<ItemDetailResponse> result = itemBusiness.findAllByItemNameLike("name");
         // assert , verify
@@ -67,7 +67,7 @@ class ItemBusinessTest {
     void findItemOneById() {
         // Arrange
         Item item = MockData.getItem();
-        when(itemRepository.findById(1L)).thenReturn(Optional.of(item));
+        when(itemService.findOneById(1L)).thenReturn(Optional.of(item));
         // Acc
         ItemFullDetailResponse result = itemBusiness.findItemOneById(1L);
         // assert , verify

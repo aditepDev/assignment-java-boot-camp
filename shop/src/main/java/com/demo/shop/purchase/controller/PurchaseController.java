@@ -14,6 +14,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @RestController
 public class PurchaseController {
 
@@ -26,7 +28,7 @@ public class PurchaseController {
     public ResponseEntity<PurchaseResponse> purchase(@RequestBody CheckOutRequest checkOutRequest) throws Exception {
         Member member = memberService.memberMork();
 
-        PurchaseResponse purchaseResponse = purchaseBusiness.checkOut(checkOutRequest, member);
+        PurchaseResponse purchaseResponse = purchaseBusiness.checkOut(checkOutRequest, member, UUID.randomUUID().toString());
         return new ResponseEntity<PurchaseResponse>(purchaseResponse,HttpStatus.CREATED);
     }
 

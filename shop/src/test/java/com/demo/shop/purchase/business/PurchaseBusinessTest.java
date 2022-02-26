@@ -4,29 +4,34 @@ import com.demo.shop.item.model.Item;
 import com.demo.shop.item.repository.ItemRepository;
 import com.demo.shop.item.service.ItemService;
 import com.demo.shop.member.model.Member;
+import com.demo.shop.member.model.MemberWallet;
+import com.demo.shop.member.repository.MemberRepository;
+import com.demo.shop.member.service.MemberService;
 import com.demo.shop.mork.MockData;
 import com.demo.shop.mork.MockPayload;
 import com.demo.shop.purchase.model.Purchase;
-import com.demo.shop.purchase.model.PurchaseItem;
 import com.demo.shop.purchase.repository.PurchaseItemRepository;
 import com.demo.shop.purchase.repository.PurchaseRepository;
 import com.demo.shop.purchase.requests.CheckOutRequest;
-import com.demo.shop.purchase.requests.ItemList;
+import com.demo.shop.purchase.response.CheckOutResponse;
+import com.demo.shop.purchase.response.PurchaseResponse;
 import com.demo.shop.purchase.service.PurchaseService;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
-@DataJpaTest
+@ExtendWith(MockitoExtension.class)
 class PurchaseBusinessTest {
     @Mock
     PurchaseItemRepository purchaseItemRepository;
@@ -34,6 +39,8 @@ class PurchaseBusinessTest {
     PurchaseRepository purchaseRepository;
     @Mock
     ItemRepository itemRepository;
+    @Mock
+    MemberRepository memberRepository;
 
     @InjectMocks
     PurchaseBusiness purchaseBusiness;
@@ -41,57 +48,74 @@ class PurchaseBusinessTest {
     PurchaseService purchaseService;
     @InjectMocks
     ItemService itemService;
+    @InjectMocks
+    MemberService memberService;
     @BeforeEach
     void setup() {
         purchaseService.setPurchaseItemRepository(purchaseItemRepository);
         purchaseService.setPurchaseRepository(purchaseRepository);
         itemService.setItemRepository(itemRepository);
+        memberService.setMemberRepository(memberRepository);
         purchaseBusiness.setPurchaseService(purchaseService);
         purchaseBusiness.setItemService(itemService);
-
+        purchaseBusiness.setMemberService(memberService);
     }
 
 
     @Test
+    @DisplayName("สร้างคำสั่งซื้อ")
     void checkOut() throws Exception {
         // Arrange
-        CheckOutRequest payload = MockPayload.getCheckOutRequest();
+        String invoiceNo =  UUID.randomUUID().toString();
         Member member = MockData.getMember();
         Item item = MockData.getItem();
-
+        CheckOutRequest checkOutRequest = MockPayload.getCheckOutRequest();
+        Purchase purchase = MockData.getPurchase(invoiceNo, member, item);
+        purchase.setPurchaseId(0);
         // Act
-        // เช็คของ
-        // savePurchase
-        Purchase purchase = new Purchase();
-        purchase.setPurchaseId(1);
-        purchase.setAddress(payload.getUserDetail().getUserAddress());
-        purchase.setMember(member);
-        purchase.setName(payload.getUserDetail().getUserName());
-        purchase.setTel(payload.getUserDetail().getUserTel());
-        purchase.setQty(2);
-        purchase.setTotal(20);
-        PurchaseItem purchaseItem = new PurchaseItem();
-        purchaseItem.setPurchaseItemId(1);
-        purchaseItem.setPurchase(purchase);
-        purchaseItem.setItem(item);
-        purchaseItem.setQty(payload.getItemList().get(0).getQty());
-        purchaseItem.setPrice(item.getItemPrice());
-        purchaseItem.setItemDetail(item.getItemDetail());
-        purchaseItem.setItemName(item.getItemName());
-        purchaseItem.setItemImage("item.jpg");
-        List<PurchaseItem> purchaseItems = new ArrayList<>();
-        purchaseItems.add(purchaseItem);
-        purchase.setPurchaseItem(purchaseItems);
-
-        when(itemRepository.findById(payload.getItemList().get(0).getItemId())).thenReturn(Optional.of(item));
-        when(purchaseRepository.save(purchase)).thenReturn(purchase);
-
-        // savePurchaseItem
-        purchase  = purchaseRepository.save(purchase);
-//        purchase  = purchaseBusiness.checkOut(payload,member);
-//        System.out.println(purchase);
+        when(itemService.findOneById(1)).thenReturn(Optional.of(item));
+        PurchaseResponse result = purchaseBusiness.checkOut(checkOutRequest, member, invoiceNo);
         // assert , verify
-        assertEquals(1,purchase.getPurchaseItem().size());
+        assertEquals(invoiceNo,result.getBillInvoiceNo());
+        assertEquals(20,result.getTotalPrice());
+        assertEquals(5000,result.getMemberWalletOld());
+        assertEquals(4980,result.getMemberWallet());
+
     }
+
+    @Test
+    @DisplayName("จ่ายเงิน")
+    void pay() throws Exception {
+        // Arrange
+        Member member = MockData.getMember();
+        double total = 1000;
+        // Act
+        MemberWallet walletOld = member.getMemberWallet();
+        double wallet = walletOld.getWallet() - total;
+        member.getMemberWallet().setWallet(wallet);
+        when(memberService.saveMembe(member)).thenReturn(member);
+        Member result = purchaseBusiness.pay(member, total);
+        // assert , verify
+        assertEquals(1,result.getMemberId());
+        assertEquals(3000,result.getMemberWallet().getWallet());
+    }
+
+    @Test
+    @DisplayName("ดู bill ที่สั่งซื้อ")
+    void bill() throws Exception {
+        String invoiceNo = "invoicenoId";
+        Member member = MockData.getMember();
+        Item item = MockData.getItem();
+        Purchase purchase = MockData.getPurchase(invoiceNo, member, item);
+        // Arrange
+        when(purchaseService.findOneByInvoiceNo(invoiceNo)).thenReturn(Optional.of(purchase));
+        // Act
+        CheckOutResponse result = purchaseBusiness.bill(invoiceNo);
+        // assert , verify
+        assertEquals(invoiceNo,result.getBillDetail().getBillInvoiceNo());
+        assertEquals(20,result.getCheckout().getTotalPrice());
+
+    }
+
 
 }

@@ -1,6 +1,7 @@
 package com.demo.shop.mork;
 
 import com.demo.shop.cart.model.Cart;
+import com.demo.shop.member.model.Member;
 import com.demo.shop.purchase.requests.CheckOutRequest;
 import com.demo.shop.purchase.requests.ItemList;
 import com.demo.shop.purchase.requests.UserDetail;
@@ -11,7 +12,6 @@ import java.util.List;
 public class MockPayload {
     public static CheckOutRequest getCheckOutRequest() {
         CheckOutRequest checkOutRequest = new CheckOutRequest();
-
         List<ItemList> itemLists = new ArrayList<>();
         itemLists.add(getItemList());
         checkOutRequest.setItemList(itemLists);
@@ -23,10 +23,11 @@ public class MockPayload {
     }
 
     public static UserDetail getUserDetail() {
+        Member member = MockData.getMember();
         UserDetail userDetail = new UserDetail();
-        userDetail.setUserName("test test");
-        userDetail.setUserAddress("93 ม.3 ต.บ้านเลื่อม อ.เมือง จ.อุดรธานี 41000");
-        userDetail.setUserTel("0800000000");
+        userDetail.setUserName(member.getMemberName());
+        userDetail.setUserAddress(member.getMemberAddress());
+        userDetail.setUserTel(member.getMemberTel());
         return userDetail;
     }
 

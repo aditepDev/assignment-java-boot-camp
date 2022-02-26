@@ -68,7 +68,7 @@ class CartBusinessTest {
 
 
         // check สินค้าว่ามีในระบบไหม
-        when(itemRepository.findById(cartPayload.getItemId())).thenReturn(Optional.of(item));
+        when(itemService.findOneById(cartPayload.getItemId())).thenReturn(Optional.of(item));
         // check สินค้าว่ามีในตะกร้ารึยัง
         when(cartRepository.findOneByMemberAndItem(member, item)).thenReturn(Optional.empty());
 
@@ -76,7 +76,7 @@ class CartBusinessTest {
         cart.setQty(cartPayload.getQty());
         cart.setMember(member);
         // add สินค้าในตะกร้า
-        when(cartRepository.save(cart)).thenReturn(cart);
+        when(cartService.saveCart(cart)).thenReturn(cart);
 
         Cart result = cartBusiness.updateItemCart(cartPayload, member);
         // Assert
@@ -101,13 +101,13 @@ class CartBusinessTest {
         // Act
 
         // check สินค้าว่ามีในระบบไหม
-        when(itemRepository.findById(cartPayload.getItemId())).thenReturn(Optional.of(item));
+        when(itemService.findOneById(cartPayload.getItemId())).thenReturn(Optional.of(item));
         // check สินค้าว่ามีในตะกร้ารึยัง
         when(cartRepository.findOneByMemberAndItem(member, item)).thenReturn(Optional.of(cart));
         cart.setItem(item);
         cart.setQty(5);
         // update จำนวนสินค้าในตะกร้า
-        when(cartRepository.save(cart)).thenReturn(cart);
+        when(cartService.saveCart(cart)).thenReturn(cart);
 
 
         Cart result = cartBusiness.updateItemCart(cartPayload, member);
@@ -133,7 +133,7 @@ class CartBusinessTest {
         // Act
 
         // check สินค้าว่ามีในระบบไหม
-        when(itemRepository.findById(cartPayload.getItemId())).thenReturn(Optional.of(item));
+        when(itemService.findOneById(cartPayload.getItemId())).thenReturn(Optional.of(item));
         // check สินค้าว่ามีในตะกร้ารึยัง
         when(cartRepository.findOneByMemberAndItem(member, item)).thenReturn(Optional.of(cart));
 
@@ -157,7 +157,7 @@ class CartBusinessTest {
         // Act
 
         // check สินค้าว่ามีในระบบไหม
-        when(itemRepository.findById(cartPayload.getItemId())).thenReturn(Optional.empty());
+        when(itemService.findOneById(cartPayload.getItemId())).thenReturn(Optional.empty());
 
         // delete สินค้าในตะกร้า
         Exception thrown = Assertions.assertThrows(Exception.class, () -> {
@@ -204,7 +204,7 @@ class CartBusinessTest {
         Member member = MockData.getMember();
         List<Cart> carts = MockData.getCarts();
 
-        when(cartRepository.findAllByMember(member)).thenReturn(carts);
+        when(cartService.findCartByMember(member)).thenReturn(carts);
         // Act
 
         CartResponse result = cartBusiness.findItemCart(member);
