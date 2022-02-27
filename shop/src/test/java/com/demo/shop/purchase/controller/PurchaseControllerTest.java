@@ -2,21 +2,17 @@ package com.demo.shop.purchase.controller;
 
 import com.demo.shop.item.model.Item;
 import com.demo.shop.item.repository.ItemRepository;
-import com.demo.shop.item.response.ItemDetailResponse;
 import com.demo.shop.member.model.Member;
-import com.demo.shop.member.model.MemberWallet;
 import com.demo.shop.member.repository.MemberRepository;
 import com.demo.shop.mork.MockData;
 import com.demo.shop.mork.MockPayload;
 import com.demo.shop.purchase.model.Purchase;
-import com.demo.shop.purchase.repository.PurchaseItemRepository;
 import com.demo.shop.purchase.repository.PurchaseRepository;
 import com.demo.shop.purchase.requests.CheckOutRequest;
 import com.demo.shop.purchase.response.CheckOutResponse;
 import com.demo.shop.purchase.response.PurchaseResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -26,15 +22,13 @@ import org.springframework.http.ResponseEntity;
 import java.util.Optional;
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class PurchaseControllerTest {
     @Autowired
     TestRestTemplate testRestTemplate;
-    @MockBean
-    PurchaseItemRepository purchaseItemRepository;
     @MockBean
     PurchaseRepository purchaseRepository;
     @MockBean

@@ -1,11 +1,8 @@
 package com.demo.shop.purchase.controller;
 
-import com.demo.shop.member.constant.MemberMork;
 import com.demo.shop.member.model.Member;
 import com.demo.shop.member.service.MemberService;
 import com.demo.shop.purchase.business.PurchaseBusiness;
-import com.demo.shop.purchase.model.Purchase;
-import com.demo.shop.purchase.response.BillDetail;
 import com.demo.shop.purchase.response.CheckOutResponse;
 import com.demo.shop.purchase.requests.CheckOutRequest;
 import com.demo.shop.purchase.response.PurchaseResponse;

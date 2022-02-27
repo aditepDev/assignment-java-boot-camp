@@ -176,7 +176,6 @@ class CartBusinessTest {
     @DisplayName("เช็คถ้าเพิ่มจำนวนสินค้าเข้าตะกร้าติดลบ thrown 'cart.qty.error' ")
     void qtyError() throws Exception {
         // Arrange
-        Member member = MockData.getMember();
         CartPayload cartPayload = new CartPayload();
         cartPayload.setItemId(11L);
         cartPayload.setQty(-1);
@@ -191,7 +190,6 @@ class CartBusinessTest {
     @DisplayName("เช็คถ้าเพิ่มรหัสสินค้าเข้าตะกร้าติดลบ thrown 'cart.itemId.error' ")
     void iditemError() throws Exception {
         // Arrange
-        Member member = MockData.getMember();
         CartPayload cartPayload = new CartPayload();
         cartPayload.setItemId(0);
         cartPayload.setQty(11);

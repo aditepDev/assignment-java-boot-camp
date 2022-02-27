@@ -1,7 +1,6 @@
 package com.demo.shop.item.controller;
 
 import com.demo.shop.item.business.ItemBusiness;
-import com.demo.shop.item.model.Item;
 import com.demo.shop.item.response.ItemDetailResponse;
 import com.demo.shop.item.response.ItemFullDetailResponse;
 import org.springframework.beans.factory.annotation.Autowired;

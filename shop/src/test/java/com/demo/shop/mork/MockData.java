@@ -7,8 +7,6 @@ import com.demo.shop.member.model.Member;
 import com.demo.shop.member.model.MemberWallet;
 import com.demo.shop.purchase.model.Purchase;
 import com.demo.shop.purchase.model.PurchaseItem;
-import com.demo.shop.purchase.requests.CheckOutRequest;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;

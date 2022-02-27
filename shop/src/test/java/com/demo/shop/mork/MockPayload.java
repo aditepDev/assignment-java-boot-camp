@@ -1,6 +1,5 @@
 package com.demo.shop.mork;
 
-import com.demo.shop.cart.model.Cart;
 import com.demo.shop.member.model.Member;
 import com.demo.shop.purchase.requests.CheckOutRequest;
 import com.demo.shop.purchase.requests.ItemList;

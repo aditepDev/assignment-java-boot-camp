@@ -1,14 +1,13 @@
 package com.demo.shop.purchase.service;
 
-import com.demo.shop.purchase.model.Purchase;
-import com.demo.shop.purchase.model.PurchaseItem;
-import com.demo.shop.purchase.repository.PurchaseItemRepository;
-import com.demo.shop.purchase.repository.PurchaseRepository;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
+import com.demo.shop.purchase.model.Purchase;
+import com.demo.shop.purchase.repository.PurchaseItemRepository;
+import com.demo.shop.purchase.repository.PurchaseRepository;
 
 @Service
 public class PurchaseService {

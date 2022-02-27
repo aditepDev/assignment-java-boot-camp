@@ -1,6 +1,5 @@
 package com.demo.shop.member.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 import lombok.ToString;
 

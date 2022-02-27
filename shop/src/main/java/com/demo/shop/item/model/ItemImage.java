@@ -1,6 +1,5 @@
 package com.demo.shop.item.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 
 import javax.persistence.*;

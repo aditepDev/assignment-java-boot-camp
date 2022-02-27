@@ -5,16 +5,12 @@ import com.demo.shop.item.repository.ItemRepository;
 import com.demo.shop.item.response.ItemDetailResponse;
 import com.demo.shop.item.response.ItemFullDetailResponse;
 import com.demo.shop.mork.MockData;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.http.ResponseEntity;
-
 import java.util.List;
 import java.util.Optional;
 

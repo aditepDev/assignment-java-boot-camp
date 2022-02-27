@@ -1,11 +1,9 @@
 package com.demo.shop.cart.response;
 
-import com.demo.shop.cart.model.Cart;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Data
 public class Checkout {
