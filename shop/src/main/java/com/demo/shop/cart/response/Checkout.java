@@ -13,10 +13,10 @@ public class Checkout {
     private int totalQty;
 
 
-    public static Checkout packCheckout(List<ItemList> ItemLists) {
+    public static Checkout packCheckout(List<ItemList> itemLists) {
         Checkout checkout = new Checkout();
-        checkout.setTotalQty(ItemLists.stream().mapToInt(ItemList::getQty).sum());
-        checkout.setTotalPrice(ItemLists.stream().mapToDouble(ItemList::getItemPrice).sum() * checkout.getTotalQty());
+        checkout.setTotalQty(itemLists.stream().mapToInt(ItemList::getQty).sum());
+        checkout.setTotalPrice(itemLists.stream().mapToDouble(ItemList::getItemPrice).sum() * checkout.getTotalQty());
         return checkout;
     }
 }

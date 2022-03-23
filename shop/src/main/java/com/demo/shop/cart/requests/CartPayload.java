@@ -1,5 +1,6 @@
 package com.demo.shop.cart.requests;
 
+import com.demo.shop.cart.exception.CartException;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
@@ -10,13 +11,13 @@ public class CartPayload {
     private int qty;
 
 
-    public void validate() throws Exception {
+    public void validate() throws CartException {
 
         if(this.itemId <= 0){
-        throw new Exception("cart.itemId.error");
+        throw CartException.custom("itemId.error");
         }
         if(this.qty < 0){
-           throw new Exception("cart.qty.error");
+            throw CartException.custom("qty.error");
         }
     }
 }

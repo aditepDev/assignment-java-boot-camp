@@ -26,12 +26,12 @@ public class PurchaseController {
         Member member = memberService.memberMork();
 
         PurchaseResponse purchaseResponse = purchaseBusiness.checkOut(checkOutRequest, member, UUID.randomUUID().toString());
-        return new ResponseEntity<PurchaseResponse>(purchaseResponse,HttpStatus.CREATED);
+        return new ResponseEntity<>(purchaseResponse,HttpStatus.CREATED);
     }
 
     @GetMapping(value = "/bill/{invoiceNo}")
     public ResponseEntity<CheckOutResponse> bill(@PathVariable String invoiceNo) throws Exception {
         CheckOutResponse checkOutResponse = purchaseBusiness.bill(invoiceNo);
-        return new ResponseEntity<CheckOutResponse>(checkOutResponse,HttpStatus.CREATED);
+        return new ResponseEntity<>(checkOutResponse,HttpStatus.CREATED);
     }
 }

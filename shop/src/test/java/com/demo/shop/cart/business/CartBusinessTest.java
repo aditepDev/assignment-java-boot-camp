@@ -5,6 +5,7 @@ import com.demo.shop.cart.repository.CartRepository;
 import com.demo.shop.cart.requests.CartPayload;
 import com.demo.shop.cart.response.CartResponse;
 import com.demo.shop.cart.service.CartService;
+import com.demo.shop.exception.BaseException;
 import com.demo.shop.item.model.Item;
 import com.demo.shop.item.repository.ItemRepository;
 import com.demo.shop.item.service.ItemService;
@@ -150,7 +151,7 @@ class CartBusinessTest {
 
     @Test
     @DisplayName("ไม่มีรหัสสินค้าในระบบให้ thrown 'cart.item.null'")
-    void ItemNull() throws Exception {
+    void ItemNull() throws BaseException {
         // Arrange
         Member member = MockData.getMember();
         CartPayload cartPayload = new CartPayload();
@@ -164,40 +165,40 @@ class CartBusinessTest {
 
         // Act
         // delete สินค้าในตะกร้า
-        Exception thrown = Assertions.assertThrows(Exception.class, () -> {
+        Exception thrown = Assertions.assertThrows(BaseException.class, () -> {
             cartBusiness.updateItemCart(cartPayload, member);
         });
         // Assert
 
-        assertEquals(thrown.getMessage(), "cart.item.null");
+        assertEquals("cart.item.null", thrown.getMessage());
     }
 
     @Test
     @DisplayName("เช็คถ้าเพิ่มจำนวนสินค้าเข้าตะกร้าติดลบ thrown 'cart.qty.error' ")
-    void qtyError() throws Exception {
+    void qtyError() throws BaseException {
         // Arrange
         CartPayload cartPayload = new CartPayload();
         cartPayload.setItemId(11L);
         cartPayload.setQty(-1);
 
         // Act
-        Exception thrown = Assertions.assertThrows(Exception.class, cartPayload::validate);
+        Exception thrown = Assertions.assertThrows(BaseException.class, cartPayload::validate);
         // Assert
-        assertEquals(thrown.getMessage(), "cart.qty.error");
+        assertEquals("cart.qty.error", thrown.getMessage());
     }
 
     @Test
     @DisplayName("เช็คถ้าเพิ่มรหัสสินค้าเข้าตะกร้าติดลบ thrown 'cart.itemId.error' ")
-    void iditemError() throws Exception {
+    void iditemError() throws BaseException {
         // Arrange
         CartPayload cartPayload = new CartPayload();
         cartPayload.setItemId(0);
         cartPayload.setQty(11);
 
         // Act
-        Exception thrown = Assertions.assertThrows(Exception.class, cartPayload::validate);
+        Exception thrown = Assertions.assertThrows(BaseException.class, cartPayload::validate);
         // Assert
-        assertEquals(thrown.getMessage(), "cart.itemId.error");
+        assertEquals("cart.itemId.error", thrown.getMessage());
     }
     @Test
     @DisplayName("ดึงสินค้าในตะกร้าพร้อมทั้งคำนวณราคา")

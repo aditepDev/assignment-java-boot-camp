@@ -20,13 +20,13 @@ public class ErrorAdviser {
     @ExceptionHandler(Exception.class)
 	public ResponseEntity<ErrorResponse> handleBaseException(HttpServletRequest request,Exception e) {
     	String path = request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE).toString();
-		String URL = String.format("%s", path);
-		log.error("ERROR : {} [IP : {} ]", URL, request.getRemoteAddr());
+		String pathUrl = String.format("%s", path);
+		log.error("ERROR : {} [IP : {} ]", pathUrl, request.getRemoteAddr());
     	log.error("{}",e);
 		ErrorResponse response = new ErrorResponse();
 		response.setError(e.getMessage());
 		response.setStatus(HttpStatus.EXPECTATION_FAILED.value());
-		response.setUrl(URL);
+		response.setUrl(pathUrl);
 		return new ResponseEntity<>(response, HttpStatus.EXPECTATION_FAILED);
 	}
 
