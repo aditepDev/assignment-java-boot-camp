@@ -11,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping(value = "/cart")
 public class CartController {
@@ -23,15 +25,20 @@ public class CartController {
     @PostMapping(value = "")
     public ResponseEntity<Void> updateItemCart(@RequestBody CartPayload cartPayload) throws BaseException {
         cartPayload.validate();
-        Member member = memberService.memberMork();
-        cartBusiness.updateItemCart(cartPayload, member);
+        Optional<Member> member = memberService.memberMork();
+        if(member.isPresent()){
+            cartBusiness.updateItemCart(cartPayload, member.get());
+        }
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @GetMapping(value = "")
     public ResponseEntity<CartResponse> findItemCart(){
-        Member member = memberService.memberMork();
-        CartResponse cartResponse = cartBusiness.findItemCart(member);
+        CartResponse  cartResponse = new CartResponse();
+        Optional<Member> member = memberService.memberMork();
+        if(member.isPresent()){
+            cartResponse = cartBusiness.findItemCart(member.get());
+        }
         return new ResponseEntity<>(cartResponse, HttpStatus.OK);
     }
 }

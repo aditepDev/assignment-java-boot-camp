@@ -6,6 +6,8 @@ import com.demo.shop.member.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class MemberService {
     @Autowired
@@ -15,8 +17,8 @@ public class MemberService {
         this.memberRepository = memberRepository;
     }
 
-    public Member memberMork(){
-        return  memberRepository.findById(MemberMork.MEMBER_MORK_BUYER.getId()).get();
+    public Optional<Member> memberMork(){
+        return  memberRepository.findById(MemberMork.MEMBER_MORK_BUYER.getId());
     }
 
     public Member saveMembe(Member member){

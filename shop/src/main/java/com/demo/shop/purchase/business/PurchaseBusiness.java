@@ -1,11 +1,15 @@
 package com.demo.shop.purchase.business;
 
+import com.demo.shop.exception.BaseException;
 import com.demo.shop.item.model.Item;
 import com.demo.shop.item.model.ItemImage;
 import com.demo.shop.item.service.ItemService;
+import com.demo.shop.member.exception.MemberException;
 import com.demo.shop.member.model.Member;
 import com.demo.shop.member.model.MemberWallet;
 import com.demo.shop.member.service.MemberService;
+import com.demo.shop.purchase.exception.BillException;
+import com.demo.shop.purchase.exception.CheckoutException;
 import com.demo.shop.purchase.model.Purchase;
 import com.demo.shop.purchase.model.PurchaseItem;
 import com.demo.shop.purchase.requests.ItemList;
@@ -31,7 +35,7 @@ public class PurchaseBusiness {
     ItemService itemService;
     @Autowired
     MemberService memberService;
-    public PurchaseResponse checkOut(CheckOutRequest checkOutRequest, Member member,String invoiceNo) throws Exception {
+    public PurchaseResponse checkOut(CheckOutRequest checkOutRequest, Member member,String invoiceNo) throws BaseException {
 
         Purchase purchase = new Purchase();
         purchase.setName(checkOutRequest.getUserDetail().getUserName());
@@ -46,7 +50,7 @@ public class PurchaseBusiness {
         for (ItemList itemList : checkOutRequest.getItemList()) {
             Optional<Item> item = itemService.findOneById(itemList.getItemId());
             if (item.isEmpty()) {
-                throw new Exception("checkout.item.null");
+                throw CheckoutException.itemNull();
             }
             PurchaseItem purchaseItem = new PurchaseItem();
             purchaseItem.setItemName(item.get().getItemName());
@@ -84,7 +88,7 @@ public class PurchaseBusiness {
 
 
     }
-    public Member pay(Member member, double total) throws Exception {
+    public Member pay(Member member, double total) throws MemberException {
         MemberWallet memberWallet =  member.getMemberWallet();
         double priceTotal = memberWallet.getWallet() - total;
         if((priceTotal) >= 0){
@@ -92,14 +96,14 @@ public class PurchaseBusiness {
             member.setMemberWallet(memberWallet);
             return memberService.saveMembe(member);
         }else{
-            throw new Exception("member.wallet.notEnough");
+            throw  MemberException.walletNotEnough();
         }
 
     }
-    public CheckOutResponse bill(String invoiceNo) throws Exception {
+    public CheckOutResponse bill(String invoiceNo) throws BillException {
         Optional<Purchase>  purchase = purchaseService.findOneByInvoiceNo(invoiceNo);
         if (purchase.isEmpty()) {
-            throw new Exception("bill.invoiceNo.null");
+            throw BillException.invoiceNonull();
         }
         CheckOutResponse checkOutResponse = new CheckOutResponse();
         Checkout checkout = new Checkout();

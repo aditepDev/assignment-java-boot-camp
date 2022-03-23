@@ -1,5 +1,7 @@
 package com.demo.shop.purchase.business;
 
+import com.demo.shop.cart.response.CartResponse;
+import com.demo.shop.exception.BaseException;
 import com.demo.shop.item.model.Item;
 import com.demo.shop.item.repository.ItemRepository;
 import com.demo.shop.item.service.ItemService;
@@ -62,7 +64,7 @@ class PurchaseBusinessTest {
 
     @Test
     @DisplayName("สร้างคำสั่งซื้อ")
-    void checkOut() throws Exception {
+    void checkOut() throws BaseException {
         // Arrange
         String invoiceNo =  UUID.randomUUID().toString();
         Member member = MockData.getMember();
@@ -83,7 +85,7 @@ class PurchaseBusinessTest {
 
     @Test
     @DisplayName("จ่ายเงิน")
-    void pay() throws Exception {
+    void pay() throws BaseException {
         // Arrange
         Member member = MockData.getMember();
         double total = 1000;
@@ -100,7 +102,7 @@ class PurchaseBusinessTest {
 
     @Test
     @DisplayName("ดู bill ที่สั่งซื้อ")
-    void bill() throws Exception {
+    void bill() throws BaseException {
         String invoiceNo = "invoicenoId";
         Member member = MockData.getMember();
         Item item = MockData.getItem();

@@ -9,7 +9,7 @@ public enum MemberMork {
 
     private final Long id;
 
-    private static final Map<Long, MemberMork> lookup = new HashMap<Long, MemberMork>();
+    private static final Map<Long, MemberMork> lookup = new HashMap<>();
 
     static {
         for (MemberMork d : MemberMork.values()) {
